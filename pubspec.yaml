@@ -1,0 +1,7 @@
+name: 'tic_tac_toe.dart'
+
+environment:
+  sdk: '^3.0.0'
+
+dependencies:
+  test:

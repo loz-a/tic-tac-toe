@@ -1,0 +1,3 @@
+enum LineCoord {
+  x, y;
+}
