@@ -1,10 +1,10 @@
 import '../line_coord.dart';
 
 class Coords {
-  late final  int x;
-  late final int y;
+  final  int x;
+  final int y;
 
-  Coords({required this.x, required this.y});
+  const Coords({required this.x, required this.y});
 
   Coords.fromString(String input):
     this(

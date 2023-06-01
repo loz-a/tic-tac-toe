@@ -11,4 +11,8 @@ class Cell {
     required this.titleLetter,
     this.value = null
   });
+
+  bool isMarked() {
+    return value != null;
+  }
 }

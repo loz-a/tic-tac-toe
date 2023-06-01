@@ -1,4 +1,5 @@
 import 'package:test/test.dart';
+import 'package:tic_tac_toe.dart/src/model/grid/exception/cell_already_marked.dart';
 
 import '../../model/config.dart';
 import '../../observer/abstract_observable.dart';
@@ -27,17 +28,23 @@ class Grid with Observable
     for (int idxVer = 0; idxVer < config.cellQtyInLine; idxVer++) {
       for (int idxHor = 0; idxHor < config.cellQtyInLine; idxHor++) {
         int x = idxHor + 1, y = idxVer + 1;
+        var coords = Coords(x: x, y: y);
         var cell = Cell(
-            coords: Coords(x: x, y: y),
+            coords: coords,
             titleLetter: String.fromCharCode(codeUnitStart + idxHor)
         );
-        cells['$x.$y'] = cell;
+        cells[_generateKey(coords)] = cell;
       }
     }
   }
 
   void setCellValue(Coords coords, Mark mark) {
-    cells['${coords.x}.${coords.y}']?.value = mark;
+    var key = _generateKey(coords);
+    if (cells[key]!.isMarked()) {
+      throw CellAlreadyMarkedException(cells[key]!);
+    }
+
+    cells[key]?.value = mark;
     notifyObservers(null);
 
     var selectedCells = getCellsForMark(mark);
@@ -79,4 +86,6 @@ class Grid with Observable
   bool isFullHorizontal(Iterable<Cell> cells, int lineNum) {
     return cells.where((cell) => cell.coords.y == lineNum).length == config.sideWidth;
   }
+
+  String _generateKey(Coords coords) => '${coords.x}.${coords.y}';
 }
