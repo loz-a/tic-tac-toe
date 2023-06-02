@@ -8,6 +8,7 @@ import 'src/view/renderer/observer/render.dart';
 void main() {
 
   init();
+  'hello';
   var container = Container.getInstance();
 
   var state = container.get((State).toString()) as State;
